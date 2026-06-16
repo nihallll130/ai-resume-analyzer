@@ -1,0 +1,17 @@
+# Project: AI Resume Analyzer & ATS Optimizer
+# Author: Your Full Name
+# GitHub: github.com/your-username
+
+import fitz
+from docx import Document
+
+def extract_text(file_path: str) -> str:
+    if file_path.endswith(".pdf"):
+        doc = fitz.open(file_path)
+        return " ".join(page.get_text() for page in doc)
+    elif file_path.endswith(".docx"):
+        doc = Document(file_path)
+        return " ".join(para.text for para in doc.paragraphs)
+    else:
+        with open(file_path, "r") as f:
+            return f.read()
