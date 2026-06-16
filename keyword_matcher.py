@@ -1,11 +1,17 @@
 # Project: AI Resume Analyzer & ATS Optimizer
 # Author: Your Full Name
-# GitHub: github.com/your-username
+# GitHub: github.com/nihallll130
 
 import spacy
 from collections import Counter
 
-nlp = spacy.load("en_core_web_sm")
+# Load model safely
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    from spacy.cli import download
+    download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
 def extract_keywords(text: str, top_n: int = 30) -> list:
     doc = nlp(text.lower())
